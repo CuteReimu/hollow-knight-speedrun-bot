@@ -1,7 +1,5 @@
 package net.cutereimu.hkbot
 
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -30,26 +28,29 @@ internal object PluginMain : KotlinPlugin(
         val re = Regex("<.*?>")
         Timer().schedule(object : TimerTask() {
             override fun run() {
-                @OptIn(DelicateCoroutinesApi::class)
-                GlobalScope.launch {
-                    val result1 = query().mapNotNull {
-                        if (it.id in HKData.pushedMessages) return@mapNotNull null
-                        HKData.pushedMessages = HKData.pushedMessages.plus(it.id)
-                        val s = re.replace(it.text, "")
-                        if ("beat the WR" in s || "got a new top 3 PB" in s) s else null
-                    }
-                    Bot.instances.firstOrNull()?.run {
-                        HKConfig.speedrunPushQQGroup.forEach { groupId ->
-                            val group = bot.getGroup(groupId) ?: return@forEach
-                            val result2 = HKData.unsend[groupId]?.plus(result1) ?: result1
-                            if (result2.isEmpty()) {
-                                HKData.unsend = HKData.unsend.minus(groupId)
-                                return@forEach
-                            }
-                            HKData.unsend = HKData.unsend.plus(groupId to result2)
-                            group.sendMessage(result2.joinToString("\r\n"))
-                            HKData.unsend = HKData.unsend.minus(groupId)
+                launch {
+                    try {
+                        val result1 = query().mapNotNull {
+                            if (it.id in HKData.pushedMessages) return@mapNotNull null
+                            HKData.pushedMessages = HKData.pushedMessages.plus(it.id)
+                            val s = re.replace(it.text, "")
+                            if ("beat the WR" in s || "got a new top 3 PB" in s) s else null
                         }
+                        Bot.instances.firstOrNull()?.run {
+                            HKConfig.speedrunPushQQGroup.forEach { groupId ->
+                                val group = bot.getGroup(groupId) ?: return@forEach
+                                val result2 = HKData.unsend[groupId]?.plus(result1) ?: result1
+                                if (result2.isEmpty()) {
+                                    HKData.unsend = HKData.unsend.minus(groupId)
+                                    return@forEach
+                                }
+                                HKData.unsend = HKData.unsend.plus(groupId to result2)
+                                group.sendMessage(result2.joinToString("\r\n"))
+                                HKData.unsend = HKData.unsend.minus(groupId)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        logger.error(e)
                     }
                 }
             }
