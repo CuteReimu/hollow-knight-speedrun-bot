@@ -34,7 +34,7 @@ internal object PluginMain : KotlinPlugin(
                             if (it.id in HKData.pushedMessages) return@mapNotNull null
                             HKData.pushedMessages = HKData.pushedMessages.plus(it.id)
                             val s = re.replace(it.text, "")
-                            if ("beat the WR" in s || "got a new top 3 PB" in s) s else null
+                            if ("beat the WR" in s || "got a new top 3 PB" in s) Translator.translate(s) else null
                         }
                         Bot.instances.firstOrNull()?.run {
                             HKConfig.speedrunPushQQGroup.forEach { groupId ->
