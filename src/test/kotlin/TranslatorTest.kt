@@ -80,4 +80,12 @@ class TranslatorTest {
         Assert.assertEquals("BBBB 获得了前三：0吉欧 - 允许所有邪道.时间是15m 31s.", s2)
     }
 
+    @Test
+    fun testTop4() {
+        val s =
+            "CCCC got a new top 3 PB in Hollow Knight Category Extensions 4 Mask Shards 1.4.3.2+ NMG. Their time is 07:45"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("CCCC 获得了前三：4面具碎片1.4.3.2+无主要邪道.时间是07:45", s2)
+    }
+
 }

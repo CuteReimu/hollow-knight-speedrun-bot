@@ -26,8 +26,10 @@ object Translator {
         }
         mapOf(
             "beat the WR" to "打破了世界纪录：",
+            "in Hollow Knight Category Extensions" to "",
             "in Hollow Knight Category Extensions -" to "",
             "King's Pass: Level" to "国王山道",
+            "in Hollow Knight" to "",
             "in Hollow Knight -" to "",
             "The new WR is" to "新的世界纪录是",
             "Their time is" to "时间是",
