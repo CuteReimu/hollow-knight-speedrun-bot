@@ -31,22 +31,28 @@ internal object PluginMain : KotlinPlugin(
                 launch {
                     try {
                         val result1 = query().mapNotNull {
-                            if (it.id in HKData.pushedMessages) return@mapNotNull null
-                            HKData.pushedMessages = HKData.pushedMessages.plus(it.id)
+                            if (HKData.pushedMessages.findLast { e -> e == it.id } != null) return@mapNotNull null
+                            HKData.pushedMessages += it.id
                             val s = re.replace(it.text, "")
                             if ("beat the WR" in s || "got a new top 3 PB" in s) Translator.translate(s) else null
                         }
+                        if (HKData.pushedMessages.size > 100)
+                            HKData.pushedMessages = HKData.pushedMessages.takeLast(100)
                         Bot.instances.firstOrNull()?.run {
                             HKConfig.speedrunPushQQGroup.forEach { groupId ->
-                                val group = bot.getGroup(groupId) ?: return@forEach
-                                val result2 = HKData.unsend[groupId]?.plus(result1) ?: result1
-                                if (result2.isEmpty()) {
+                                try {
+                                    val group = bot.getGroup(groupId) ?: return@forEach
+                                    val result2 = HKData.unsend[groupId]?.plus(result1) ?: result1
+                                    if (result2.isEmpty()) {
+                                        HKData.unsend = HKData.unsend.minus(groupId)
+                                        return@forEach
+                                    }
+                                    HKData.unsend = HKData.unsend.plus(groupId to result2)
+                                    group.sendMessage(result2.joinToString("\r\n"))
                                     HKData.unsend = HKData.unsend.minus(groupId)
-                                    return@forEach
+                                } catch (e: Exception) {
+                                    logger.error("send group message failed: ", e)
                                 }
-                                HKData.unsend = HKData.unsend.plus(groupId to result2)
-                                group.sendMessage(result2.joinToString("\r\n"))
-                                HKData.unsend = HKData.unsend.minus(groupId)
                             }
                         }
                     } catch (e: Exception) {
