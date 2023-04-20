@@ -73,6 +73,13 @@ class TranslatorTest {
     }
 
     @Test
+    fun testWR10() {
+        val s = "CCCC beat the WR in Hollow Knight Path of Pain Level. The new WR is 01:58.590"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("CCCC 打破了世界纪录：苦痛之路.新的世界纪录是01:58.590", s2)
+    }
+
+    @Test
     fun testTop3() {
         val s =
             "BBBB got a new top 3 PB in Hollow Knight Category Extensions - 0 Geo - All Glitches. Their time is 15m 31s."
