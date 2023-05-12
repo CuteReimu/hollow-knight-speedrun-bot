@@ -92,7 +92,7 @@ class TranslatorTest {
         val s =
             "EEEE beat the WR in Hollow Knight Category Extensions PoP% No Main Menu Storage. The new WR is 27:06"
         val s2 = Translator.translate(s)
-        Assert.assertEquals("EEEE 打破了世界纪录：苦痛之路%NMMS.新的世界纪录是27:06", s2)
+        Assert.assertEquals("EEEE 打破了世界纪录：苦痛之路% NMMS.新的世界纪录是27:06", s2)
     }
 
     @Test
