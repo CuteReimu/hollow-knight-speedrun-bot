@@ -63,6 +63,12 @@ object Translator {
             "- NMG." to "- 无主要邪道.",
             "Console Runs" to "主机速通",
             "Any Bindings" to "任意锁",
+            "Abyss Climb: Level" to "深渊攀爬",
+            "Abyss Climb Level" to "深渊攀爬",
+            "NG" to "新存档",
+            "NG+" to "无需新存档",
+            "NMG NG+" to "无主要邪道无需新存档",
+            "Warpless" to "禁SL",
         ).forEach { (key, value) ->
             if (!translateDict.putIfAbsent(key, value))
                 throw Exception("出现重复数据：${key}")

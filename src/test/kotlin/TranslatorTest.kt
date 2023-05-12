@@ -80,6 +80,22 @@ class TranslatorTest {
     }
 
     @Test
+    fun testWR11() {
+        val s =
+            "DDDD beat the WR in Hollow Knight Category Extensions Great Hopper% 1.4.3.2+ NMG NG+ Warpless. The new WR is 01:05.390"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("DDDD 打破了世界纪录：大跳虫% 1.4.3.2+无主要邪道无需新存档禁SL.新的世界纪录是01:05.390", s2)
+    }
+
+    @Test
+    fun testWR12() {
+        val s =
+            "EEEE beat the WR in Hollow Knight Category Extensions PoP% No Main Menu Storage. The new WR is 27:06"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("EEEE 打破了世界纪录：苦痛之路%NMMS.新的世界纪录是27:06", s2)
+    }
+
+    @Test
     fun testTop3() {
         val s =
             "BBBB got a new top 3 PB in Hollow Knight Category Extensions - 0 Geo - All Glitches. Their time is 15m 31s."
@@ -95,4 +111,11 @@ class TranslatorTest {
         Assert.assertEquals("CCCC 获得了前三：4面具碎片1.4.3.2+无主要邪道.时间是07:45", s2)
     }
 
+    @Test
+    fun testTop5() {
+        val s =
+            "DDDD got a new top 3 PB in Hollow Knight Category Extensions Abyss Climb Level. Their time is 00:29.130"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("DDDD 获得了前三：深渊攀爬.时间是00:29.130", s2)
+    }
 }
