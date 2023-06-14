@@ -118,4 +118,12 @@ class TranslatorTest {
         val s2 = Translator.translate(s)
         Assert.assertEquals("DDDD 获得了前三：深渊攀爬.时间是00:29.130", s2)
     }
+
+    @Test
+    fun testTop6() {
+        val s =
+            "EEEE got a new top 3 PB in Hollow Knight Category Extensions King's Pass Level Fast. Their time is 00:39.570"
+        val s2 = Translator.translate(s)
+        Assert.assertEquals("EEEE 获得了前三：国王山道 Fast.时间是00:39.570", s2)
+    }
 }

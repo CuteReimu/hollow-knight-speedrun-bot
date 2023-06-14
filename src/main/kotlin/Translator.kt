@@ -65,6 +65,8 @@ object Translator {
             "Any Bindings" to "任意锁",
             "Abyss Climb: Level" to "深渊攀爬",
             "Abyss Climb Level" to "深渊攀爬",
+            "King's Pass: Level" to "国王山道",
+            "King's Pass Level" to "国王山道",
             "NG" to "新存档",
             "NG+" to "无需新存档",
             "NMG NG+" to "无主要邪道无需新存档",
