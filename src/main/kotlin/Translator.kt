@@ -109,7 +109,7 @@ object Translator {
                 break
             }
             if (node2 == null) return null
-            return Pair(key2, node2.value!!)
+            return key2 to node2.value!!
         }
 
         fun replaceAll(str: String): String {
