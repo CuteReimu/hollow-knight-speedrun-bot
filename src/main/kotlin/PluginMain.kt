@@ -48,8 +48,11 @@ internal object PluginMain : KotlinPlugin(
                                         return@forEach
                                     }
                                     HKData.unsend = HKData.unsend.plus(groupId to result2)
-                                    group.sendMessage(result2.joinToString("\r\n"))
-                                    HKData.unsend = HKData.unsend.minus(groupId)
+                                    val receipt = group.sendMessage(result2.joinToString("\r\n"))
+                                    if (receipt.source.ids.let { ids -> ids.isEmpty() || ids.any { it < 0 } })
+                                        logger.warning("群消息发送失败，你的账号可能已被风控")
+                                    else
+                                        HKData.unsend = HKData.unsend.minus(groupId)
                                 } catch (e: Exception) {
                                     logger.error("send group message failed: ", e)
                                 }
