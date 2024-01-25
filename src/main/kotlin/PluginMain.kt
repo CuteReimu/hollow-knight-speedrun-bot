@@ -85,6 +85,7 @@ internal object PluginMain : KotlinPlugin(
             .header("user-agent", ua)
             .header("Accept", "application/json")
             .header("X-API-Key", HKConfig.speedrunApiKey)
+            .header("connection", "close")
             .get().build()
         val resp = client.newCall(request).execute()
         if (resp.code != 200)
