@@ -9,13 +9,13 @@ object Translator {
     private val regexpSpace = Regex("""(?<![()\[\]{}%'"A-Za-z-]) (?![()\[\]{}%'"A-Za-z-])""")
 
     init {
-        javaClass.getResourceAsStream("/translate.tsv")!!.use {
+        javaClass.getResourceAsStream("/translate.csv")!!.use {
             BufferedReader(InputStreamReader(it)).use { reader ->
                 var line: String
                 while (true) {
                     line = reader.readLine() ?: break
                     if (line.isNotEmpty()) {
-                        val arr = line.split("\t")
+                        val arr = line.split(",")
                         val key = arr[0]
                         val value = if (arr.size > 1) arr[1] else ""
                         if (!translateDict.putIfAbsent(key, value))
