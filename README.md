@@ -6,6 +6,8 @@
 [![](https://img.shields.io/github/license/CuteReimu/hollow-knight-speedrun-bot)](https://github.com/CuteReimu/hollow-knight-speedrun-bot/blob/master/LICENSE "许可协议")
 </div>
 
+**本项目已迁移至 https://github.com/CuteReimu/YinYangJade**
+
 ## 编译
 
 ```shell
